@@ -1,0 +1,75 @@
+@startuml
+left to right direction
+skin rose
+interface Sistema {
+
+}
+
+class SistemaImpl{
+    - instrumento: ListaInstrumento
+    + SistemaImpl():void
+    + menuSistema(): void
+
+}
+class ListaInstrumento {
+    - cantidadMaxima: int
+    - cantidadIntrumento: int
+    - listaInstrumento: Instrumento[]
+    + ListaInstrumento(cantidadMaxima: int): void
+    + getCantidadMaxima(): int
+    + getCantidadInstrumento(): int
+}
+abstract Instrumento {
+    - codigoInstrumento: String
+    - stock: int
+    - precio: int
+    - detallesInstrumento: String
+    + Instrumento(): void
+    + getCodigoInstrumento(): String
+    + getStock():int
+    + getPrecio(): int
+    + getDetallesInstrumento(): void
+}
+
+class Cuerda {
+    - instrumento: String
+    - tipoCuerda: String
+    - numeroCuerdas: int
+    - materialConstruccion: String
+    - tipo: String
+    + Cuerda():void
+    + getIntrumento(): String
+    + getTipoCuerda(): String
+    + getNumeroCuerdas(): int
+    + getMaterialConstruccion(): String
+    + getTipo(): String
+}
+class Percusion {
+    - instrumento: String
+    - tipoPercusion: String
+    - materialConstruccion: String
+    - altura: float
+    + Percusion(): void
+    + getIntrumento(): String
+    + getTipoPercusion(): String
+    + getMaterialConstruccion(): String
+    + getAltura(): float
+}
+
+class Viento {
+    - instrumento: String
+    - material: String
+    + Viento():void
+    + getMaterial(): String
+}
+
+
+ListaInstrumento -- Instrumento
+Instrumento -- Cuerda
+Instrumento -- Viento
+Instrumento -- Percusion
+Sistema -- ListaInstrumento
+SistemaImpl ..|> Sistema
+
+
+@enduml

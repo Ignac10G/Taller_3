@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+skin rose
+
+entity Trabajador {
+
+}
+entity Sistema {
+    codigo intrumento
+    stock intrumento
+
+}
+entity Instrumento {
+    codigo
+    tipo de intrumento
+    stock
+    precio
+    detalles del instrumento
+}
+
+Trabajador "1..*"-- "1..*"Instrumento: solicita >
+(Trabajador,Instrumento) ..Sistema
+
+@enduml
