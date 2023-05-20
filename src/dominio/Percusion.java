@@ -6,8 +6,8 @@ public class Percusion extends Instrumento{
     private String materialContruccion;
     private float altura;
 
-    public Percusion(String codigoInstrumento, int stock, int precio, String detallesInstrumento, String instrumento, String tipoPercusion, String materialContruccion, float altura) {
-        super(codigoInstrumento, stock, precio, detallesInstrumento);
+    public Percusion(String codigoInstrumento, int stock, int precio, String instrumento, String tipoPercusion, String materialContruccion, float altura) {
+        super(codigoInstrumento, stock, precio);
         this.instrumento = instrumento;
         this.tipoPercusion = tipoPercusion;
         this.materialContruccion = materialContruccion;

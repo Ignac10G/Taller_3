@@ -12,6 +12,31 @@ public class ListaInstrumento {
         this.cantidadInstrumento = cantidadInstrumento;
         this.listaInstrumento = new Instrumento[cantidadMaxima];
     }
+    public void agregarInstrumento(Instrumento instrumento){
+        if (cantidadInstrumento == cantidadMaxima){
+            System.out.println("No se pueden almacenar mas datos");
+        }
+        listaInstrumento[cantidadInstrumento] = instrumento;
+        cantidadInstrumento ++;
+    }
+    public Instrumento obtenerInstrumento(Instrumento instrumento){
+        for (int i = 0; i < cantidadInstrumento; i++) {
+            if (listaInstrumento[i] == instrumento){
+                return listaInstrumento[i];
+            }
+        }
+        return null;
+    }
+    public boolean eliminarInstrumento(Instrumento instrumento){
+        for (int i = 0; i < cantidadInstrumento; i++) {
+            if (listaInstrumento[i] == instrumento){
+                cantidadInstrumento--;
+                return true;
+            }
+        }
+        return false;
+
+    }
 
     public int getCantidadMaxima() {
         return cantidadMaxima;

@@ -4,13 +4,11 @@ public class Instrumento {
     private String codigoInstrumento;
     private int stock;
     private int precio;
-    private String detallesInstrumento;
 
-    public Instrumento(String codigoInstrumento, int stock, int precio, String detallesInstrumento) {
+    public Instrumento(String codigoInstrumento, int stock, int precio) {
         this.codigoInstrumento = codigoInstrumento;
         this.stock = stock;
         this.precio = precio;
-        this.detallesInstrumento = detallesInstrumento;
     }
 
     public String getCodigoInstrumento() {
@@ -25,7 +23,7 @@ public class Instrumento {
         return precio;
     }
 
-    public String getDetallesInstrumento() {
-        return detallesInstrumento;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

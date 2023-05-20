@@ -5,8 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import coleccion.ListaInstrumento;
+import dominio.Cuerda;
+import dominio.Instrumento;
+import dominio.Percusion;
+import dominio.Viento;
 
 public class SistemaImpl {
+
+    private ListaInstrumento listaDeInstrumentos;
 
     public SistemaImpl() {
     }
@@ -21,6 +28,9 @@ public class SistemaImpl {
         try {
             Scanner sc = new Scanner(archivoDatos);
             String aux;
+            Percusion percusion;
+            Viento viento;
+            Cuerda cuerda;
 
 
             while(sc.hasNext()) {
@@ -31,7 +41,7 @@ public class SistemaImpl {
                 String id = partes[0];
                 String codigo = partes[1];
                 String precio = partes[2];
-                String Stock = partes[3];
+                String stock = partes[3];
                 String tipo = partes[4];
                 String instrumento = partes[5];
                 String tipoCuerda = partes[6];
@@ -40,9 +50,18 @@ public class SistemaImpl {
                 String tipoSonido = partes[9];
                 String altura = partes[10];
 
-
-
-                System.out.println(codigo);
+                if (tipo == "cuerda"){
+                    cuerda = new Cuerda(codigo, Integer.parseInt(stock),Integer.parseInt(precio), instrumento, tipoCuerda,Integer.parseInt(numeroCuerdas), material, tipoSonido);
+                    listaDeInstrumentos.agregarInstrumento(cuerda);
+                }
+                if (tipo=="viento"){
+                    viento= new Viento(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, material);
+                    listaDeInstrumentos.agregarInstrumento(viento);
+                }
+                if (tipo == "percusion"){ñ
+                    percusion = new Percusion(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, tipoSonido, material, Integer.parseInt(altura));
+                    listaDeInstrumentos.agregarInstrumento(percusion);
+                }
 
             }
             sc.close();
@@ -73,6 +92,9 @@ public class SistemaImpl {
                     menuSistema();
                 case 2:
                     System.out.println("Ingrese el código del instrumento a vender: ");
+                    String codigoVender = scanner.nextLine();
+                    venderInstrumento(codigoVender);
+                    break;
                     //venderInstrumento()
                 case 3:
                     System.out.println("Ingrese el tipo de instrumento (Todos, Cuerda, Percusion, Viento): ");
@@ -88,9 +110,31 @@ public class SistemaImpl {
             System.out.println("Cerrando el sofware");
     }
 
-    public void venderInstrumento() {
+    public void venderInstrumento(String codigoVender) {
 
+
+
+        Instrumento instrumento = d;
+
+        if (instrumento != null && instrumento.getStock() > 0) {
+            instrumento.setStock(instrumento.getStock() - 1);
+            System.out.println("El instrumento " + ?? + ", se ha vendido.");
+            System.out.println("Al precio de: " + instrumento.getPrecio());
+
+            gBoleta(instrumento);
+        } else {
+            System.out.println("El instrumento " + codigoVender + " ya no se encuentra disponible.");
+        }
     }
-}
+    private void gBoleta(Instrumento instrumento) {ñ
+        System.out.println("DiscUCN Antofagasta");
+        System.out.println("Fecha: 24/12/2099" );
+        System.out.println("// BOLETA //");
+        System.out.println("Instrumento: " +  ?? );
+        System.out.println("Precio: " + instrumento.getPrecio());
+            }
+        }
+
+
 
 
