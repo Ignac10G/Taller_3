@@ -1,0 +1,11 @@
+-1,codigo_ean,precio,stock,tipo,instrumento,tipo_cuerda,numero_cuerdas,material,tipo_sonido,altura
+0,1234567890,100,10,Cuerda,Guitarra,Nylon,6,Madera,El�ctrico,null
+1,2345678901,250,5,Cuerda,Viol�n,Tripa,4,Madera,Ac�stico,null
+2,3456789012,500,2,Cuerda,Arpa,Nylon,47,Madera,Ac�stico,null
+3,4567890123,350,8,Percusi�n,Bong�,null,null,Piel,Membran�fono,Indefinido
+4,5678901234,400,6,Percusi�n,Caj�n,null,null,Madera,Membran�fono,Indefinido
+5,6789012345,150,12,Percusi�n,Campanas,null,null,Metal,Idi�fono,Definido
+6,7890123456,300,4,Viento,Trompeta,null,null,Metal,null,null
+7,8901234567,200,7,Viento,Saxof�n,null,null,Metal,null,null
+8,9012345678,180,9,Viento,Clarinete,null,null,Madera,null,null
+9,7123456789,120,15,Viento,Flauta traversa,null,null,Metal,null,null
