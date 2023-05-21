@@ -2,7 +2,8 @@ package sistema;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,10 +13,18 @@ import dominio.Instrumento;
 import dominio.Percusion;
 import dominio.Viento;
 
-public class SistemaImpl {
+/**
+ * Esta clase implementa los metodos del sistema.
+ * @author: Ignacio Gavia
+ * @author: Vicente Castro
+ */
+public class SistemaImpl implements Sistema{
 
     private ListaInstrumento listaDeInstrumentos;
 
+    /**
+     * The constructor.
+     */
     public SistemaImpl() {
         this.listaDeInstrumentos = new ListaInstrumento(1000);
     }
@@ -24,6 +33,7 @@ public class SistemaImpl {
      * Lectura de archivo.
      * @param nombreArchivo nombre del archivo a leer.
      */
+    @Override
     public void lecturaDeArchivos(String nombreArchivo) {
 
         File archivoDatos = new File(nombreArchivo);
@@ -40,7 +50,6 @@ public class SistemaImpl {
                 aux = sc.nextLine();
                 String[] partes = aux.split(",");
 
-                String id = partes[0];
                 String codigo = partes[1];
                 String precio = partes[2];
                 String stock = partes[3];
@@ -61,7 +70,7 @@ public class SistemaImpl {
                     listaDeInstrumentos.agregarInstrumento(viento);
                 }
                 if (Objects.equals(tipo, "Percusion")){
-                    percusion = new Percusion(tipo, instrumento,codigo, Integer.parseInt(stock), Integer.parseInt(precio), tipoCuerda, material, altura);
+                    percusion = new Percusion(tipo, codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento,tipoCuerda, material, altura);
                     listaDeInstrumentos.agregarInstrumento(percusion);
                 }
 
@@ -71,7 +80,10 @@ public class SistemaImpl {
             System.out.println(ex.getMessage());
         }
     }
-
+    /**
+     * Este método se encarga del control del menu principal del sofware.
+     */
+    @Override
     public void menuSistema(){
 
         Scanner scanner = new Scanner(System.in);
@@ -90,6 +102,7 @@ public class SistemaImpl {
                 case 1:
                     System.out.println("Archivo cargado con exito!");
                     menuSistema();
+
                 case 2:
                     System.out.println("Ingrese el código del instrumento a vender: ");
                     String codigoVender = scanner.nextLine();
@@ -97,6 +110,7 @@ public class SistemaImpl {
                     break;
                 case 3:
                     consultarInventario();
+                    break;
                 case 4:
                     salir = true;
                     break;
@@ -105,9 +119,13 @@ public class SistemaImpl {
             }
             System.out.println();
         }
-            System.out.println("Cerrando el sofware");
+        System.out.println("Cerrando el sofware");
     }
-
+    /**
+     * Este método se encarga de quitar el intrumento por el codigo que se entrega por párametro.
+     * @param codigoVender Codigo solicitado de intrumento a vender.
+     */
+    @Override
     public void venderInstrumento(String codigoVender) {
 
         int posInstrumento = listaDeInstrumentos.buscarPorCodigo(codigoVender);
@@ -123,15 +141,36 @@ public class SistemaImpl {
             System.out.println("El instrumento " + codigoVender + " ya no se encuentra disponible.");
         }
     }
-    private void gBoleta(Instrumento instrumento) {
-        System.out.println("DiscUCN Antofagasta");
-        System.out.println("Fecha: 24/12/2099" );
-        System.out.println("// BOLETA //");
+    /**
+     * Este método se encarga de generar la boleta por el intrumento que se entrega por párametro.
+     * @param instrumento Intrumento solicitado mediante el codigo entregado.
+     */
+    @Override
+    public void gBoleta(Instrumento instrumento) {
+        Date todayDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String fechaActual = sdf.format(todayDate);
+        double n = Math.random()*1000 + 100;
+
+        System.out.println("-------DiscUCN Antofagasta------");
+        System.out.println("-------Rut: 96620260-2------");
+        System.out.println("======================================");
+        System.out.println("Fecha: " + fechaActual );
+        System.out.println("Numero de boleta: " + (int)n );
+        System.out.println("Sucursal: Av. Angamos 610 ");
+        System.out.println("Tienda: Antofagasta  ");
+
+        System.out.println("======================================");
+        System.out.println("// BOLETA ELECTRONICA//");
         System.out.println("Instrumento: " + instrumento.getInstrumento());
         System.out.println("Precio: " + instrumento.getPrecio());
+        System.out.println("======================================");
     }
-
-    private void consultarInventario(){
+    /**
+     * Este método se encarga de consultar el inventario mediante un menu.
+     */
+    @Override
+    public void consultarInventario(){
         Scanner scanner = new Scanner(System.in);
         System.out.printf("\n" + "******************************************* \n" +
                                 "-------------------Inventario----------------\n" +
@@ -169,7 +208,13 @@ public class SistemaImpl {
                 System.out.println("Opción inválida. Intente nuevamente.");
         }
     }
-    private void mostrarInstrumento(String opcion){
+
+    /**
+     * Este método se encarga de mostrar mediante consola los instrumentos disponibles.
+     * @param opcion tipo de intrumento a imprimir.
+     */
+    @Override
+    public void mostrarInstrumento(String opcion){
         Instrumento instrumento;
         String codigo;
         int precio;
@@ -213,16 +258,23 @@ public class SistemaImpl {
                 material = intrumentoPercusion.getMaterialContruccion();
                 altura = intrumentoPercusion.getAltura();
                 detallesInstrumentos = "Tipo de percusion: " + tipoCuerda + "\nMateial de construccion: " + material + "\n Altura: " + altura;
-                if (opcion == "TODOS"|| opcion == "Percusion") {
+                if (opcion == "TODOS"|| opcion == "Percusión") {
                     System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
                 }
             }
         }
-        menuSistema();
     }
 
-    // codigo, precio, intrumento, detalles del instrumento
-    public String desplegarInstrumento(String codigo,String precio, String nombreInstrumento, String detallesInstrumento){
+    /**
+     * Este metodo imprime mediante consola la descripcion de cada instrumento.
+     * @param codigo codigo del instrumento.
+     * @param precio porecio del instrumento.
+     * @param nombreInstrumento nombre del instrumento.
+     * @param detallesInstrumento detalles del instrumento.
+     *
+     */
+    @Override
+    public String desplegarInstrumento(String codigo, String precio, String nombreInstrumento, String detallesInstrumento){
         return("**********************************************************************\n"+
                 "  Codigo: "+codigo+"\n"+
                 "  Precio: "+ precio+"\n"+
@@ -231,6 +283,10 @@ public class SistemaImpl {
                 "***********************************************************************");
     }
 
+    /**
+     * Este metodo muestra mediante consola los detalles del instrumento buscado mediante su codigo.
+     */
+    @Override
     public void mostrarInstrumentoPorCodigo(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el codigo de instrumento: ");
@@ -273,6 +329,8 @@ public class SistemaImpl {
         menuSistema();
 
     }
+
+
 
 }
 

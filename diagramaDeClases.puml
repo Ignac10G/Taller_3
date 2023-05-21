@@ -1,7 +1,15 @@
 @startuml
 left to right direction
 skin rose
-interface Sistema {
+interface Sistema <<Interface>> {
+    + lecturaDeArchivos():void
+    + menuSistema():void
+    + venderInstrumento():void
+    + generarBoleta():void
+    + consultarInventario():void
+    + mostrarInstrumento():void
+    + desplegarInstrumento():void
+    + mostrarInstrumentoPorCodigo():void
 
 }
 
@@ -64,12 +72,12 @@ class Viento {
 }
 
 
-ListaInstrumento -- Instrumento
-Instrumento -- Cuerda
-Instrumento -- Viento
-Instrumento -- Percusion
-Sistema -- ListaInstrumento
-SistemaImpl ..|> Sistema
+ListaInstrumento"1" o--> "*"Instrumento: contiene >
+Instrumento <|-- Cuerda
+Instrumento <|-- Viento
+Instrumento <|-- Percusion
+Sistema --> "1"ListaInstrumento
+SistemaImpl ..|> Sistema :implementa>
 
 
 @enduml
