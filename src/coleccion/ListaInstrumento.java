@@ -75,4 +75,7 @@ public class ListaInstrumento {
     public Instrumento[] getListaInstrumento() {
         return listaInstrumento;
     }
+    public Instrumento getInstrumento(int posicion){
+        return listaInstrumento[posicion];
+    }
 }

@@ -61,7 +61,7 @@ public class SistemaImpl {
                     listaDeInstrumentos.agregarInstrumento(viento);
                 }
                 if (Objects.equals(tipo, "Percusion")){
-                    percusion = new Percusion(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, tipoSonido, material, Integer.parseInt(altura));
+                    percusion = new Percusion(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, tipoSonido, material, altura);
                     listaDeInstrumentos.agregarInstrumento(percusion);
                 }
 
@@ -133,6 +133,7 @@ public class SistemaImpl {
     }
 
     private void consultarInventario(){
+        Scanner scanner = new Scanner(System.in);
         System.out.printf("\n" + "******************************************* \n" +
                                 "-------------------Inventario----------------\n" +
                                 "Seleccione su opción: \n" +
@@ -144,6 +145,49 @@ public class SistemaImpl {
                                 "[6]. Salir del inventario.\n"+
                                 "******************************************* \n");
         System.out.println(">");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+        switch (opcion){
+            case 1:
+                //mostrarInstrumentos()
+                break;
+            case 2:
+                //mostrarInstrumentoCuerda()
+                break;
+            case 3:
+                //mostrarInstrumentoViento()
+                break;
+            case 4:
+                //mostrarInstrumentoPercusion()
+                break;
+            case 5:
+                //mostrarInstrumentoPorCodigo()
+                break;
+            case 6:
+                menuSistema();
+                break;
+            default:
+                System.out.println("Opción inválida. Intente nuevamente.");
+        }
+    }
+    private void mostrarInstrumentos(){
+        Instrumento instrumento;
+        String codigo;
+        int precio;
+        int stock;
+        String tipo;
+        String nombreInstrumento;
+        String tipoCuerda;
+        int numeroCuerda;
+        String material;
+        String tipoSonido;
+        String altura;
+        for (int i = 0; i < listaDeInstrumentos.getCantidadInstrumento(); i++) {
+            instrumento = listaDeInstrumentos.getInstrumento(i);
+            
+        }
+
+
     }
 
 }
