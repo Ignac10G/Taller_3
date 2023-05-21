@@ -136,12 +136,12 @@ public class SistemaImpl {
         System.out.printf("\n" + "******************************************* \n" +
                                 "-------------------Inventario----------------\n" +
                                 "Seleccione su opción: \n" +
-                                "[1]. Ver empleados. \n" +
-                                "[2]. Ver departamentos. \n" +
-                                "[3]. ingresar nuevo empleado. \n" +
-                                "[4]. Ingresar nuevo departamento.\n"+
-                                "[5]. Estadísticas.\n"+
-                                "[6]. Salir del programa.\n"+
+                                "[1]. Ver todos los intrumentos. \n" +
+                                "[2]. Ver instrumentos tipo cuerda. \n" +
+                                "[3]. Ver instrumentos tipo viento. \n" +
+                                "[4]. Ver instrumentos tipo percusion.\n"+
+                                "[5]. Buscar instrumento por codigo.\n"+
+                                "[6]. Salir del inventario.\n"+
                                 "******************************************* \n");
         System.out.println(">");
     }
