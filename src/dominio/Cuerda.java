@@ -7,8 +7,8 @@ public class Cuerda extends Instrumento{
     private String materialConstruccion;
     private String tipo;
 
-    public Cuerda(String codigoInstrumento, int stock, int precio, String instrumento, String tipoCuerda, int numeroCuerdas, String materialConstruccion, String tipo) {
-        super(instrumento,codigoInstrumento, stock, precio);
+    public Cuerda(String tipoInstrumento,String codigoInstrumento, int stock, int precio, String instrumento, String tipoCuerda, int numeroCuerdas, String materialConstruccion, String tipo) {
+        super(tipoInstrumento,instrumento,codigoInstrumento, stock, precio);
         this.instrumento = instrumento;
         this.tipoCuerda = tipoCuerda;
         this.numeroCuerdas = numeroCuerdas;

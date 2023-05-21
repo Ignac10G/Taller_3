@@ -53,15 +53,15 @@ public class SistemaImpl {
                 String altura = partes[10];
 
                 if (Objects.equals(tipo, "Cuerda")){
-                    cuerda = new Cuerda(codigo, Integer.parseInt(stock),Integer.parseInt(precio), instrumento, tipoCuerda,Integer.parseInt(numeroCuerdas), material, tipoSonido);
+                    cuerda = new Cuerda(tipo,codigo, Integer.parseInt(stock),Integer.parseInt(precio), instrumento, tipoCuerda,Integer.parseInt(numeroCuerdas), material, tipoSonido);
                     listaDeInstrumentos.agregarInstrumento(cuerda);
                 }
                 if (Objects.equals(tipo, "Viento")){
-                    viento= new Viento(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, material);
+                    viento= new Viento(tipo,codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, material);
                     listaDeInstrumentos.agregarInstrumento(viento);
                 }
                 if (Objects.equals(tipo, "Percusion")){
-                    percusion = new Percusion(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, tipoSonido, material, altura);
+                    percusion = new Percusion(tipo, instrumento,codigo, Integer.parseInt(stock), Integer.parseInt(precio), tipoCuerda, material, altura);
                     listaDeInstrumentos.agregarInstrumento(percusion);
                 }
 
@@ -96,8 +96,7 @@ public class SistemaImpl {
                     venderInstrumento(codigoVender);
                     break;
                 case 3:
-                    System.out.println("Ingrese el tipo de instrumento (Todos, Cuerda, Percusion, Viento): ");
-                    //consultarInventario()
+                    consultarInventario();
                 case 4:
                     salir = true;
                     break;
@@ -149,19 +148,19 @@ public class SistemaImpl {
         scanner.nextLine();
         switch (opcion){
             case 1:
-                //mostrarInstrumentos()
+                mostrarInstrumento("TODOS");
                 break;
             case 2:
-                //mostrarInstrumentoCuerda()
+                mostrarInstrumento("Cuerda");
                 break;
             case 3:
-                //mostrarInstrumentoViento()
+                mostrarInstrumento("Viento");
                 break;
             case 4:
-                //mostrarInstrumentoPercusion()
+                mostrarInstrumento("Percusion");
                 break;
             case 5:
-                //mostrarInstrumentoPorCodigo()
+                mostrarInstrumentoPorCodigo();
                 break;
             case 6:
                 menuSistema();
@@ -170,11 +169,10 @@ public class SistemaImpl {
                 System.out.println("Opción inválida. Intente nuevamente.");
         }
     }
-    private void mostrarInstrumentos(){
+    private void mostrarInstrumento(String opcion){
         Instrumento instrumento;
         String codigo;
         int precio;
-        int stock;
         String tipo;
         String nombreInstrumento;
         String tipoCuerda;
@@ -182,11 +180,97 @@ public class SistemaImpl {
         String material;
         String tipoSonido;
         String altura;
+        String detallesInstrumentos;
         for (int i = 0; i < listaDeInstrumentos.getCantidadInstrumento(); i++) {
             instrumento = listaDeInstrumentos.getInstrumento(i);
-            
-        }
+            codigo = instrumento.getCodigoInstrumento();
+            precio = instrumento.getPrecio();
+            tipo = instrumento.getTipoInstrumento();
+            nombreInstrumento = instrumento.getInstrumento();
+            if (Objects.equals(tipo, "Cuerda")) {
+                Cuerda instrumentoCuerda = (Cuerda) instrumento;
+                tipoCuerda = instrumentoCuerda.getTipoCuerda();
+                numeroCuerda = instrumentoCuerda.getNumeroCuerdas();
+                material = instrumentoCuerda.getMaterialConstruccion();
+                tipoSonido = instrumentoCuerda.getTipo();
+                detallesInstrumentos = "Tipo de cuerda: " + tipoCuerda + "\nN° de cuerdas: " + numeroCuerda + "\nMaterial de construccion: " + material + "\nTipo de sonido: " + tipoSonido;
+                if (opcion == "TODOS"|| opcion == "Cuerda") {
+                    System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+                }
+            }
+            if (Objects.equals(tipo, "Viento")) {
+                Viento instrumentoViento = (Viento) instrumento;
+                material = instrumentoViento.getMaterial();
+                detallesInstrumentos = "Material de construccion: " + material;
 
+                if (opcion == "TODOS"|| opcion == "Viento") {
+                    System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+                }
+            }
+            if (Objects.equals(tipo, "Percusion")) {
+                Percusion intrumentoPercusion = (Percusion) instrumento;
+                tipoCuerda = intrumentoPercusion.getTipoPercusion();
+                material = intrumentoPercusion.getMaterialContruccion();
+                altura = intrumentoPercusion.getAltura();
+                detallesInstrumentos = "Tipo de percusion: " + tipoCuerda + "\nMateial de construccion: " + material + "\n Altura: " + altura;
+                if (opcion == "TODOS"|| opcion == "Percusion") {
+                    System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+                }
+            }
+        }
+        menuSistema();
+    }
+
+    // codigo, precio, intrumento, detalles del instrumento
+    public String desplegarInstrumento(String codigo,String precio, String nombreInstrumento, String detallesInstrumento){
+        return("**********************************************************************\n"+
+                "  Codigo: "+codigo+"\n"+
+                "  Precio: "+ precio+"\n"+
+                "  Intrumento: "+nombreInstrumento+"\n"+
+                "  Descripcion\n"+detallesInstrumento+"\n"+
+                "***********************************************************************");
+    }
+
+    public void mostrarInstrumentoPorCodigo(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el codigo de instrumento: ");
+        String codigo = scanner.nextLine();
+        int pos = listaDeInstrumentos.buscarPorCodigo(codigo);
+        Instrumento instrumento = listaDeInstrumentos.obtenerInstrumento(pos);
+
+        int precio = instrumento.getPrecio();
+        String tipo = instrumento.getTipoInstrumento();
+        String nombreInstrumento = instrumento.getInstrumento();
+        String tipoCuerda;
+        int numeroCuerda;
+        String material;
+        String tipoSonido;
+        String detallesInstrumentos;
+        String altura;
+
+        if (Objects.equals(tipo, "Cuerda")){
+            tipoCuerda = ((Cuerda) instrumento).getTipoCuerda();
+            numeroCuerda = ((Cuerda) instrumento).getNumeroCuerdas();
+            material = ((Cuerda) instrumento).getMaterialConstruccion();
+            tipoSonido = ((Cuerda) instrumento).getTipo();
+            detallesInstrumentos = "Tipo de cuerda: " + tipoCuerda + "\nN° de cuerdas: " + numeroCuerda + "\nMaterial de construccion: " + material + "\nTipo de sonido: " + tipoSonido;
+            System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+        }
+        if (Objects.equals(tipo, "Viento")){
+            material = ((Viento) instrumento).getMaterial();
+            detallesInstrumentos = "Material de construccion: " + material;
+            System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+
+        }
+        if (Objects.equals(tipo, "Percusion")){
+            Percusion intrumentoPercusion = (Percusion) instrumento;
+            tipoCuerda = intrumentoPercusion.getTipoPercusion();
+            material = intrumentoPercusion.getMaterialContruccion();
+            altura = intrumentoPercusion.getAltura();
+            detallesInstrumentos = "Tipo de percusion: " + tipoCuerda + "\nMateial de construccion: " + material + "\n Altura: " + altura;
+            System.out.println(desplegarInstrumento(codigo, String.valueOf(precio), nombreInstrumento, detallesInstrumentos));
+        }
+        menuSistema();
 
     }
 

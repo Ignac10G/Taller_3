@@ -6,8 +6,9 @@ public class Percusion extends Instrumento{
     private String materialContruccion;
     private String altura;
 
-    public Percusion(String codigoInstrumento, int stock, int precio, String instrumento, String tipoPercusion, String materialContruccion, String altura) {
-        super(instrumento, codigoInstrumento, stock, precio);
+
+    public Percusion(String tipoInstrumento,String instrumento,String codigoInstrumento, int stock, int precio, String tipoPercusion, String materialContruccion, String altura) {
+        super(tipoInstrumento,instrumento, codigoInstrumento, stock, precio);
         this.tipoPercusion = tipoPercusion;
         this.materialContruccion = materialContruccion;
         this.altura = altura;
@@ -20,7 +21,7 @@ public class Percusion extends Instrumento{
         return materialContruccion;
     }
 
-    public float getAltura() {
+    public String getAltura() {
         return altura;
     }
 }

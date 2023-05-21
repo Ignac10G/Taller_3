@@ -3,8 +3,8 @@ package dominio;
 public class Viento extends Instrumento{
     private String material;
 
-    public Viento(String codigoInstrumento, int stock, int precio, String instrumento, String material) {
-        super(instrumento, codigoInstrumento, stock, precio);
+    public Viento(String tipoInstrumento,String codigoInstrumento, int stock, int precio, String instrumento, String material) {
+        super(tipoInstrumento,instrumento, codigoInstrumento, stock, precio);
         this.material = material;
     }
 
