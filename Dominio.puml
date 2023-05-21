@@ -5,20 +5,47 @@ skin rose
 entity Trabajador {
 
 }
+
+entity Inventario{
+    Codigo Instrumento
+    Stock intrumento
+    Precio
+    Instrumento
+    Detalles intrumentos
+}
+
 entity Sistema {
     codigo intrumento
     stock intrumento
+    Boleta
 
 }
-entity Instrumento {
-    codigo
-    tipo de intrumento
-    stock
-    precio
-    detalles del instrumento
+
+entity Cuerda{
+    Instrumento
+    Tipo de cuerda
+    Numero de cuerdas
+    Material Construccion
+    Tipo
 }
 
-Trabajador "1..*"-- "1..*"Instrumento: solicita >
-(Trabajador,Instrumento) ..Sistema
+entity Percusión{
+    Instrumento
+    Tipo de Percusión
+    Material Construccion
+    Altura
+}
+
+entity Viento{
+    Instrumento
+    Material Construccion
+}
+
+
+Trabajador "1..*"-- "1--*" Sistema: Solicita
+Sistema "1..*"-- "1..*"Inventario: solicita >
+Inventario "1..*"-- "1..*"Cuerda: contiene >
+Inventario "1..*"-- "1..*"Percusión: contiene >
+Inventario "1..*"-- "1..*"Viento: contiene >
 
 @enduml
