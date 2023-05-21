@@ -1,23 +1,17 @@
 package dominio;
 
 public class Percusion extends Instrumento{
-    private String instrumento;
+
     private String tipoPercusion;
     private String materialContruccion;
     private float altura;
 
     public Percusion(String codigoInstrumento, int stock, int precio, String instrumento, String tipoPercusion, String materialContruccion, float altura) {
-        super(codigoInstrumento, stock, precio);
-        this.instrumento = instrumento;
+        super(instrumento, codigoInstrumento, stock, precio);
         this.tipoPercusion = tipoPercusion;
         this.materialContruccion = materialContruccion;
         this.altura = altura;
     }
-
-    public String getInstrumento() {
-        return instrumento;
-    }
-
     public String getTipoPercusion() {
         return tipoPercusion;
     }

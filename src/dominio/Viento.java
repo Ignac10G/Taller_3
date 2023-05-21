@@ -1,17 +1,11 @@
 package dominio;
 
 public class Viento extends Instrumento{
-    private String instrumento;
     private String material;
 
     public Viento(String codigoInstrumento, int stock, int precio, String instrumento, String material) {
-        super(codigoInstrumento, stock, precio);
-        this.instrumento = instrumento;
+        super(instrumento, codigoInstrumento, stock, precio);
         this.material = material;
-    }
-
-    public String getInstrumento() {
-        return instrumento;
     }
 
     public String getMaterial() {

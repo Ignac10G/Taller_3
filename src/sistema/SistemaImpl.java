@@ -3,6 +3,7 @@ package sistema;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import coleccion.ListaInstrumento;
@@ -16,6 +17,7 @@ public class SistemaImpl {
     private ListaInstrumento listaDeInstrumentos;
 
     public SistemaImpl() {
+        this.listaDeInstrumentos = new ListaInstrumento(1000);
     }
 
     /**
@@ -50,15 +52,15 @@ public class SistemaImpl {
                 String tipoSonido = partes[9];
                 String altura = partes[10];
 
-                if (tipo == "cuerda"){
+                if (Objects.equals(tipo, "Cuerda")){
                     cuerda = new Cuerda(codigo, Integer.parseInt(stock),Integer.parseInt(precio), instrumento, tipoCuerda,Integer.parseInt(numeroCuerdas), material, tipoSonido);
                     listaDeInstrumentos.agregarInstrumento(cuerda);
                 }
-                if (tipo=="viento"){
+                if (Objects.equals(tipo, "Viento")){
                     viento= new Viento(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, material);
                     listaDeInstrumentos.agregarInstrumento(viento);
                 }
-                if (tipo == "percusion"){ñ
+                if (Objects.equals(tipo, "Percusion")){
                     percusion = new Percusion(codigo, Integer.parseInt(stock), Integer.parseInt(precio), instrumento, tipoSonido, material, Integer.parseInt(altura));
                     listaDeInstrumentos.agregarInstrumento(percusion);
                 }
@@ -86,8 +88,6 @@ public class SistemaImpl {
             scanner.nextLine();
             switch (opcion) {
                 case 1:
-                    System.out.println("Ingrese el tipo de instrumento (Cuerda, Percusion, Viento): ");
-                    lecturaDeArchivos("instrumentos.csv");
                     System.out.println("Archivo cargado con exito!");
                     menuSistema();
                 case 2:
@@ -95,7 +95,6 @@ public class SistemaImpl {
                     String codigoVender = scanner.nextLine();
                     venderInstrumento(codigoVender);
                     break;
-                    //venderInstrumento()
                 case 3:
                     System.out.println("Ingrese el tipo de instrumento (Todos, Cuerda, Percusion, Viento): ");
                     //consultarInventario()
@@ -112,13 +111,12 @@ public class SistemaImpl {
 
     public void venderInstrumento(String codigoVender) {
 
+        int posInstrumento = listaDeInstrumentos.buscarPorCodigo(codigoVender);
+        Instrumento instrumento = listaDeInstrumentos.obtenerInstrumento(posInstrumento);
 
-
-        Instrumento instrumento = d;
-
-        if (instrumento != null && instrumento.getStock() > 0) {
+        if (instrumento.getStock() > 0) {
             instrumento.setStock(instrumento.getStock() - 1);
-            System.out.println("El instrumento " + ?? + ", se ha vendido.");
+            System.out.println("El instrumento " + instrumento.getInstrumento() + ", se ha vendido.");
             System.out.println("Al precio de: " + instrumento.getPrecio());
 
             gBoleta(instrumento);
@@ -126,14 +124,29 @@ public class SistemaImpl {
             System.out.println("El instrumento " + codigoVender + " ya no se encuentra disponible.");
         }
     }
-    private void gBoleta(Instrumento instrumento) {ñ
+    private void gBoleta(Instrumento instrumento) {
         System.out.println("DiscUCN Antofagasta");
         System.out.println("Fecha: 24/12/2099" );
         System.out.println("// BOLETA //");
-        System.out.println("Instrumento: " +  ?? );
+        System.out.println("Instrumento: " + instrumento.getInstrumento());
         System.out.println("Precio: " + instrumento.getPrecio());
-            }
-        }
+    }
+
+    private void consultarInventario(){
+        System.out.printf("\n" + "******************************************* \n" +
+                                "-------------------Inventario----------------\n" +
+                                "Seleccione su opción: \n" +
+                                "[1]. Ver empleados. \n" +
+                                "[2]. Ver departamentos. \n" +
+                                "[3]. ingresar nuevo empleado. \n" +
+                                "[4]. Ingresar nuevo departamento.\n"+
+                                "[5]. Estadísticas.\n"+
+                                "[6]. Salir del programa.\n"+
+                                "******************************************* \n");
+        System.out.println(">");
+    }
+
+}
 
 
 

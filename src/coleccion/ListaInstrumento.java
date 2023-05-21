@@ -2,24 +2,35 @@ package coleccion;
 
 import dominio.Instrumento;
 
+import java.util.Objects;
+
 public class ListaInstrumento {
     private int cantidadMaxima;
     private int cantidadInstrumento;
-    private Instrumento[] listaInstrumento;
+    private final Instrumento[] listaInstrumento;
 
-    public ListaInstrumento(int cantidadMaxima, int cantidadInstrumento, Instrumento[] listaInstrumento) {
+    public ListaInstrumento(int cantidadMaxima) {
         this.cantidadMaxima = cantidadMaxima;
-        this.cantidadInstrumento = cantidadInstrumento;
+        this.cantidadInstrumento = 0;
         this.listaInstrumento = new Instrumento[cantidadMaxima];
     }
     public void agregarInstrumento(Instrumento instrumento){
-        if (cantidadInstrumento == cantidadMaxima){
+        if (this.buscarPorCodigo(instrumento.getCodigoInstrumento()) != -1){
+            throw new IllegalArgumentException("El instrumento ya existe.");
+        }
+        if (this.cantidadInstrumento == this.cantidadMaxima){
             System.out.println("No se pueden almacenar mas datos");
         }
-        listaInstrumento[cantidadInstrumento] = instrumento;
-        cantidadInstrumento ++;
+        for (int i = 0; i < cantidadMaxima; i++) {
+            if (this.listaInstrumento[i]== null){
+                this.listaInstrumento[i] = instrumento;
+                this.cantidadInstrumento++;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No se encontro espacio disponible.");
     }
-    public Instrumento obtenerInstrumento(Instrumento instrumento){
+    public Instrumento buscarInstrumento(Instrumento instrumento){
         for (int i = 0; i < cantidadInstrumento; i++) {
             if (listaInstrumento[i] == instrumento){
                 return listaInstrumento[i];
@@ -27,15 +38,30 @@ public class ListaInstrumento {
         }
         return null;
     }
-    public boolean eliminarInstrumento(Instrumento instrumento){
-        for (int i = 0; i < cantidadInstrumento; i++) {
-            if (listaInstrumento[i] == instrumento){
-                cantidadInstrumento--;
-                return true;
+    public boolean eliminarInstrumento(String codigo){
+        int pos = this.buscarPorCodigo(codigo);
+        if(pos < 0){
+            return false;
+        }
+        this.listaInstrumento[pos] = null;
+        this.cantidadInstrumento--;
+        return true;
+    }
+
+    public int buscarPorCodigo(String codigo){
+        for (int i = 0; i <cantidadMaxima; i++) {
+            if (this.listaInstrumento[i] != null && Objects.equals(this.listaInstrumento[i].getCodigoInstrumento(), codigo)){
+                return i;
             }
         }
-        return false;
+        return -1;
+    }
 
+    public Instrumento obtenerInstrumento(int pos){
+        if(pos < 0 || pos >= this.cantidadMaxima){
+            throw new IllegalArgumentException("Posicion no valida");
+        }
+        return this.listaInstrumento[pos];
     }
 
     public int getCantidadMaxima() {

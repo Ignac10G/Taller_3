@@ -8,7 +8,7 @@ public class Cuerda extends Instrumento{
     private String tipo;
 
     public Cuerda(String codigoInstrumento, int stock, int precio, String instrumento, String tipoCuerda, int numeroCuerdas, String materialConstruccion, String tipo) {
-        super(codigoInstrumento, stock, precio);
+        super(instrumento,codigoInstrumento, stock, precio);
         this.instrumento = instrumento;
         this.tipoCuerda = tipoCuerda;
         this.numeroCuerdas = numeroCuerdas;
@@ -16,9 +16,6 @@ public class Cuerda extends Instrumento{
         this.tipo = tipo;
     }
 
-    public String getInstrumento() {
-        return instrumento;
-    }
 
     public String getTipoCuerda() {
         return tipoCuerda;
